@@ -63,10 +63,11 @@ void deleteList (ElementType x, Pos p, List *L){
     }
     else if(checkEmpty(*L)==1){
         printf("List is empty");
-    }else if(p<1 || p>end(*L)){
+    }else if(p<1 || p>L->last){
         printf("Invalid positive");
     }else {
-        for(Pos i=p; i<end(*L); i++){
+        ///i<end(*L) hinh nhu sai
+        for(Pos i=p; i<L->last; i++){
             L->element[i-1]=L->element[i];
         }
     }
