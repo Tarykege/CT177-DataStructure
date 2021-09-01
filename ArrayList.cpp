@@ -81,6 +81,18 @@ void removeAllX(ElementType x, List *L){
         if(p!=L->last+1) deleteList(p, L);
     }while(p!=L->last+1);
 }
+void swap(Pos p, Pos q, List *L){
+    ElementType temp = L->element[p-1];
+    L->element[p-1]=L->element[q-1];
+    L->element[q-1]=temp;
+}
+void sortList(List *L){
+    for(Pos i=0; i<=L->last-2; i++){
+        for(Pos j=i+1; j<=L->last-1; j++){
+            if(L->element[i]>L->element[j]) swap(i+1,j+1,L);
+        }
+    }
+}
 void input(List *L){
     makenullList(L);
     int n;
