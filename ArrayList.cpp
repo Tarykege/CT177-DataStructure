@@ -35,12 +35,12 @@ ElementType retrive(Pos p, List L){
 }
 Pos locate(ElementType x, List L){
     Pos p=firstList(L);
-    while(p!=endList(L)){
+    while(p!=L.last+1){
         if(retrive(p,L)==x){
             return p;
         }else p=next(p, L);
     }
-    return endList(L);
+    return p;
 }
 void insertList(ElementType x, Pos p, List *L){
     if(L->last==maxLength && (p<1 || p>endList(*L))){
@@ -59,7 +59,7 @@ void insertList(ElementType x, Pos p, List *L){
         L->last++;
     }
 }
-void deleteList (ElementType x, Pos p, List *L){
+void deleteList (Pos p, List *L){
     if(emptyList(*L)==1 && (p<1 || p>endList(*L))){
         printf("List is empty & invalid positive");
     }
@@ -73,6 +73,13 @@ void deleteList (ElementType x, Pos p, List *L){
         }
     }
     L->last--;
+}
+void removeAllX(ElementType x, List *L){
+    Pos p;
+    do{
+        p=locate(x,*L);
+        if(p!=L->last+1) deleteList(p, L);
+    }while(p!=L->last+1);
 }
 void input(List *L){
     makenullList(L);
@@ -90,6 +97,7 @@ void output(List L){
         printf("%d ",retrive(i,L));
     }
 }
+
 int main(){
 
 return 0;
