@@ -20,11 +20,14 @@ Pos next(Pos p, List L){
 Pos previous(Pos p){
     return p-1;
 }
-void makeNull(List *L){
+void makenullList(List *L){
     L->last=0;
 }
-int checkEmpty(List L){
+int emptyList(List L){
     return L.last==0;
+}
+int fullList(List L){
+    return L.last==maxLength;
 }
 //retrive tra ve kieu du lieu ElementType vi day la tra ve gia tri phan tu tai vi tri p
 ElementType retrive(Pos p, List L){
@@ -58,10 +61,10 @@ void insertList(ElementType x, Pos p, List *L){
     }
 }
 void deleteList (ElementType x, Pos p, List *L){
-    if(checkEmpty(*L)==1 && (p<1 || p>end(*L))){
+    if(emptyList(*L)==1 && (p<1 || p>end(*L))){
         printf("List is empty & invalid positive");
     }
-    else if(checkEmpty(*L)==1){
+    else if(emptyList(*L)==1){
         printf("List is empty");
     }else if(p<1 || p>L->last){
         printf("Invalid positive");
@@ -74,7 +77,7 @@ void deleteList (ElementType x, Pos p, List *L){
     L->last--;
 }
 void input(List *L){
-    makeNull(L);
+    makenullList(L);
     int n;
     printf("quality: "); scanf("%d",&n);
     ElementType x;
