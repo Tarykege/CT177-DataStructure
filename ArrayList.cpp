@@ -87,9 +87,9 @@ void swap(Pos p, Pos q, List *L){
     L->element[q-1]=temp;
 }
 void sortList(List *L){
-    for(Pos i=0; i<=L->last-2; i++){
-        for(Pos j=i+1; j<=L->last-1; j++){
-            if(L->element[i]>L->element[j]) swap(i+1,j+1,L);
+    for(Pos i=1; i<=L->last-1; i++){
+        for(Pos j=i+1; j<=L->last; j++){
+            if(L->element[i-1]>L->element[j-1]) swap(i,j,L);
         }
     }
 }
