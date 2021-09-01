@@ -93,6 +93,24 @@ void sortList(List *L){
         }
     }
 }
+void evenList(List L1, List *L2){
+    makenullList(L2);
+    Pos p=1;
+    while(p!=L1.last+1){
+        ElementType x=L1.element[p-1];
+        if(x%2==0) insertList(x,L2->last+1,L2);
+        p++;
+    }
+}
+void oddList(List L1, List *L2){
+    makenullList(L2);
+    Pos p=1;
+    while(p!=L1.last+1){
+        ElementType x=L1.element[p-1];
+        if(x%2!=0) insertList(x,L2->last+1,L2);
+        p++;
+    }
+}
 void input(List *L){
     makenullList(L);
     int n;
