@@ -8,10 +8,10 @@ typedef struct{
     Pos last;
 }List;
 //method
-Pos first(List L){
+Pos firstList(List L){
     return 1;
 }
-Pos end(List L){
+Pos endList(List L){
     return L.last+1;
 }
 Pos next(Pos p, List L){
@@ -29,39 +29,38 @@ int emptyList(List L){
 int fullList(List L){
     return L.last==maxLength;
 }
-//retrive tra ve kieu du lieu ElementType vi day la tra ve gia tri phan tu tai vi tri p
+
 ElementType retrive(Pos p, List L){
     return L.element[p-1];
 }
 Pos locate(ElementType x, List L){
-    //neu khong tim duoc thi tra ve -1
-    Pos p=first(L);
-    while(p!=end(L)){
+    Pos p=firstList(L);
+    while(p!=endList(L)){
         if(retrive(p,L)==x){
             return p;
         }else p=next(p, L);
     }
-    return -1;
+    return endList(L);
 }
 void insertList(ElementType x, Pos p, List *L){
-    if(L->last==maxLength && (p<1 || p>end(*L))){
+    if(L->last==maxLength && (p<1 || p>endList(*L))){
         printf("List is full & invalid positive");
     }
     else if(L->last==maxLength){
         printf("List is full");
-    }else if(p<1 || p>end(*L)){
+    }else if(p<1 || p>endList(*L)){
         printf("Invalid positive");
     }else {
         //tai sao i dung last trong giao trinh
-        for(Pos i=end(*L); i>p; i=next(i,*L)){
-            L->element[i-1]=L->element[i-2];
+        for(Pos i=L->last; i>p-1; i=next(i,*L)){
+            L->element[i]=L->element[i-1];
         }
         L->element[p-1]=x;
         L->last++;
     }
 }
 void deleteList (ElementType x, Pos p, List *L){
-    if(emptyList(*L)==1 && (p<1 || p>end(*L))){
+    if(emptyList(*L)==1 && (p<1 || p>endList(*L))){
         printf("List is empty & invalid positive");
     }
     else if(emptyList(*L)==1){
@@ -69,9 +68,8 @@ void deleteList (ElementType x, Pos p, List *L){
     }else if(p<1 || p>L->last){
         printf("Invalid positive");
     }else {
-        ///i<end(*L) hinh nhu sai
-        for(Pos i=p; i<L->last; i++){
-            L->element[i-1]=L->element[i];
+        for(Pos i=p-1; i<=L->last-2; i++){
+            L->element[i]=L->element[i+1];
         }
     }
     L->last--;
@@ -84,11 +82,11 @@ void input(List *L){
     for (int i=1; i<=n; i++){
         printf("Nhap phan tu thu %d: ",i); scanf("%d", &x);
         //insertList(x, i, L);
-        insertList(x, end(*L),L);
+        insertList(x, endList(*L),L);
     }
 }
 void output(List L){
-    for(int i=first(L); i<end(L); i=next(i,L)){
+    for(int i=firstList(L); i<endList(L); i=next(i,L)){
         printf("%d ",retrive(i,L));
     }
 }
