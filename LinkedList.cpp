@@ -139,6 +139,112 @@ void output(List L){
     printf("\n");
 }
 //======================================================================//
+void append(ElementType x, List *L){
+    Position t;
+    Position p=*L;
+    t= (struct Node*) malloc(sizeof(struct Node));
+    t->Next=NULL;
+    t->Element=x;
+    while(p->Next!=NULL){
+        p=p->Next;
+    }
+    t->Next=p->Next;
+    p->Next=t;
+}
+
+void addFirst(ElementType x, List *L){
+    Position t;
+    Position p=*L;
+    makeNullList(&t);
+    t->Element=x;
+    t->Next=p->Next;
+    p->Next=t;
+}
+
+void printOddNumbers(List L){
+    Position p=L;
+    while(p->Next!=NULL){
+        if(p->Next->Element%2!=0) printf("%d ",p->Next->Element);
+        p=p->Next;
+    }  
+}
+
+void printEvenNumbers(List L){
+    Position p=L;
+    while(p->Next!=NULL){
+        if(p->Next->Element%2==0) printf("%d ",p->Next->Element);
+        p=p->Next;
+    }  
+}
+
+void copyEvenNumbers(List L1, List *L2){
+    makeNullList(L2);
+    Position p=L1;
+    while(p->Next!=NULL){
+        if(p->Next->Element%2==0) append(p->Next->Element,L2);
+        p=p->Next;
+    }  
+}
+
+
+int member(ElementType x, List L){
+    Position p=L;
+    while(p->Next!=NULL){
+        if(p->Next->Element==x){
+            return 1;
+        }    
+        else p=p->Next;
+    }
+    return 0;
+}
+List unionSet(List L1, List L2){
+    Position p=L1;
+    Position q=L2;
+    List L3;
+    makeNullList(&L3);
+    while(p->Next!=NULL){
+        append(p->Next->Element,&L3);
+        p=p->Next;
+    }
+    while(q->Next!=NULL){
+        if(!member(q->Next->Element,L1)) append(q->Next->Element,&L3);
+        q=q->Next;
+    }
+    return L3;
+}
+
+List intersection(List L1, List L2){
+    Position p=L1;
+    Position q=L2;
+    List L3;
+    makeNullList(&L3);
+    while(p->Next!=NULL){
+        append(p->Next->Element,&L3);
+        p=p->Next;
+    }
+    while(q->Next!=NULL){
+        if(member(q->Next->Element,L1)) append(q->Next->Element,&L3);
+        q=q->Next;
+    }
+
+    Position L4;
+    makeNullList(&L4);
+    Position z = L3;
+    while(z->Next!=NULL){
+        Position x=z->Next;
+        while(x->Next!=NULL){
+            if(z->Next->Element==x->Next->Element && !member(z->Next->Element,L4)){
+                append(z->Next->Element,&L4);
+                break;
+            }
+            x=x->Next;
+        }
+        z=z->Next;
+    }
+
+    return L4;
+}
+//======================================================================//
 int main(){
     List L;
     ElementType x;
