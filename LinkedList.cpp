@@ -143,19 +143,21 @@ int main(){
     List L;
     ElementType x;
     Position P;
-    input(&L); // Nhap danh sach
-    //output(L); //In danh sach len man hinh
+    input(&L);
+    output(L); 
+    printf("\n");
+    printf("Nhap phan tu can them: ");
+    scanf("%d",&x);
+    insertList(x,endList(L),&L);
+    output(L);
+    printf("Nhap noi dung phan tu can xoa: ");
+    scanf("%d",&x);
+    P=locate(x,L);
+    deleteList(P,&L);
+    printf("In danh sach sau khi xoa: ");
+    output(L);
+    printf("Sap xep: ");
     sortList(&L);
-    // printf("Nhap phan tu can them: ");
-    // scanf("%d",&x);
-    // insertList(x,endList(L),&L);
-    // output(L);
-
-    // printf("Nhap noi dung phan tu can xoa: ");
-    // scanf("%d",&x);
-    // P=locate(x,L);
-    // deleteList(P,&L);
-    // In danh sach sau khi xoa
     output(L);
     return 0;
 }
