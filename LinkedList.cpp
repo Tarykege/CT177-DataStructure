@@ -267,4 +267,3 @@ int main(){
     output(L);
     return 0;
 }
-//tai sao list cung la mot con tro nhung khi dung ham make null thi khong thay doi gia tri ben ngoai 
