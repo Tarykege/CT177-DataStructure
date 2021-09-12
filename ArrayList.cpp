@@ -20,7 +20,7 @@ Pos next(Pos p, List L){
 Pos previous(Pos p){
     return p-1;
 }
-void makenullList(List *L){
+void makeNullList(List *L){
     L->last=0;
 }
 int emptyList(List L){
@@ -29,10 +29,10 @@ int emptyList(List L){
 int fullList(List L){
     return L.last==maxLength;
 }
-
 ElementType retrive(Pos p, List L){
     return L.element[p-1];
 }
+//======================================================================//
 Pos locate(ElementType x, List L){
     Pos p=firstList(L);
     while(p!=L.last+1){
@@ -42,6 +42,7 @@ Pos locate(ElementType x, List L){
     }
     return p;
 }
+//======================================================================//
 void insertList(ElementType x, Pos p, List *L){
     if(L->last==maxLength && (p<1 || p>endList(*L))){
         printf("List is full & invalid positive");
@@ -59,6 +60,7 @@ void insertList(ElementType x, Pos p, List *L){
         L->last++;
     }
 }
+//======================================================================//
 void deleteList (Pos p, List *L){
     if(emptyList(*L)==1 && (p<1 || p>endList(*L))){
         printf("List is empty & invalid positive");
@@ -74,6 +76,7 @@ void deleteList (Pos p, List *L){
     }
     L->last--;
 }
+//======================================================================//
 void removeAllX(ElementType x, List *L){
     Pos p;
     do{
@@ -81,11 +84,13 @@ void removeAllX(ElementType x, List *L){
         if(p!=L->last+1) deleteList(p, L);
     }while(p!=L->last+1);
 }
+
 void swap(Pos p, Pos q, List *L){
     ElementType temp = L->element[p-1];
     L->element[p-1]=L->element[q-1];
     L->element[q-1]=temp;
 }
+//======================================================================//
 void sortList(List *L){
     for(Pos i=1; i<=L->last-1; i++){
         for(Pos j=i+1; j<=L->last; j++){
@@ -93,8 +98,9 @@ void sortList(List *L){
         }
     }
 }
+//======================================================================//
 void evenList(List L1, List *L2){
-    makenullList(L2);
+    makeNullList(L2);
     Pos p=1;
     while(p!=L1.last+1){
         ElementType x=L1.element[p-1];
@@ -102,8 +108,9 @@ void evenList(List L1, List *L2){
         p++;
     }
 }
+//======================================================================//
 void oddList(List L1, List *L2){
-    makenullList(L2);
+    makeNullList(L2);
     Pos p=1;
     while(p!=L1.last+1){
         ElementType x=L1.element[p-1];
@@ -111,8 +118,9 @@ void oddList(List L1, List *L2){
         p++;
     }
 }
+//======================================================================//
 void input(List *L){
-    makenullList(L);
+    makeNullList(L);
     int n;
     printf("quality: "); scanf("%d",&n);
     ElementType x;
@@ -127,7 +135,7 @@ void output(List L){
         printf("%d ",retrive(i,L));
     }
 }
-
+//======================================================================//
 int main(){
 
 return 0;
