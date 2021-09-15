@@ -1,142 +1,163 @@
 #include <stdio.h>
+/*
+* Author @PhanPhuongLan
+*/
 //initial
-#define maxLength 100
-typedef int Pos;
+#define MaxLength 300
 typedef int ElementType;
+typedef int Position;
 typedef struct{
-    ElementType element[maxLength];
-    Pos last;
+    ElementType element[MaxLength];
+    Position Last;
 }List;
 //method
-Pos firstList(List L){
-    return 1;
-}
-Pos endList(List L){
-    return L.last+1;
-}
-Pos next(Pos p, List L){
-    return p+1;
-}
-Pos previous(Pos p){
-    return p-1;
-}
-void makeNullList(List *L){
-    L->last=0;
-}
-int emptyList(List L){
-    return L.last==0;
-}
-int fullList(List L){
-    return L.last==maxLength;
-}
-ElementType retrive(Pos p, List L){
-    return L.element[p-1];
-}
-//======================================================================//
-Pos locate(ElementType x, List L){
-    Pos p=firstList(L);
-    while(p!=L.last+1){
-        if(retrive(p,L)==x){
-            return p;
-        }else p=next(p, L);
-    }
-    return p;
-}
-//======================================================================//
-void insertList(ElementType x, Pos p, List *L){
-    if(L->last==maxLength && (p<1 || p>endList(*L))){
-        printf("List is full & invalid positive");
-    }
-    else if(L->last==maxLength){
-        printf("List is full");
-    }else if(p<1 || p>endList(*L)){
-        printf("Invalid positive");
-    }else {
-        //tai sao i dung last trong giao trinh
-        for(Pos i=L->last; i>p-1; i=next(i,*L)){
-            L->element[i]=L->element[i-1];
-        }
-        L->element[p-1]=x;
-        L->last++;
-    }
-}
-//======================================================================//
-void deleteList (Pos p, List *L){
-    if(emptyList(*L)==1 && (p<1 || p>endList(*L))){
-        printf("List is empty & invalid positive");
-    }
-    else if(emptyList(*L)==1){
-        printf("List is empty");
-    }else if(p<1 || p>L->last){
-        printf("Invalid positive");
-    }else {
-        for(Pos i=p-1; i<=L->last-2; i++){
-            L->element[i]=L->element[i+1];
-        }
-    }
-    L->last--;
-}
-//======================================================================//
-void removeAllX(ElementType x, List *L){
-    Pos p;
-    do{
-        p=locate(x,*L);
-        if(p!=L->last+1) deleteList(p, L);
-    }while(p!=L->last+1);
+List L;
+void makeNullList(List *pL){
+   pL->Last=0;
 }
 
-void swap(Pos p, Pos q, List *L){
-    ElementType temp = L->element[p-1];
-    L->element[p-1]=L->element[q-1];
-    L->element[q-1]=temp;
+int emptyList(List L){
+    return L.Last==0;
+}
+
+int fullList(List L){
+    return L.Last==MaxLength;
+}
+
+Position first(List L){
+    return 1;
+}
+
+Position endList(List L){
+    return L.Last+1;
 }
 //======================================================================//
-void sortList(List *L){
-    for(Pos i=1; i<=L->last-1; i++){
-        for(Pos j=i+1; j<=L->last; j++){
-            if(L->element[i-1]>L->element[j-1]) swap(i,j,L);
+void insertList(ElementType x, Position P, List *pL){
+    Position Q;
+    if(pL->Last==MaxLength) printf("List is full!");
+    else if (P<1 || P>pL->Last+1) printf("Position invalid!");
+    else{
+        for(Q=pL->Last; Q>=P; Q--){
+            pL->element[Q]=pL->element[Q-1];
         }
+        pL->element[P-1]=x;
+        pL->Last++;
     }
 }
 //======================================================================//
-void evenList(List L1, List *L2){
-    makeNullList(L2);
-    Pos p=1;
-    while(p!=L1.last+1){
-        ElementType x=L1.element[p-1];
-        if(x%2==0) insertList(x,L2->last+1,L2);
-        p++;
+void deleteList(Position P, List *pL){
+    if((P<1) || (P>pL->Last)) printf("Position invalid");
+    else if(emptyList(*pL)){
+        printf("List is empty!");
+    }
+    else{
+        Position Q;
+        for(Q=P; Q<=pL->Last-1;Q++){
+            pL->element[Q-1]=pL->element[Q];
+        }
+        pL->Last--;
     }
 }
 //======================================================================//
-void oddList(List L1, List *L2){
-    makeNullList(L2);
-    Pos p=1;
-    while(p!=L1.last+1){
-        ElementType x=L1.element[p-1];
-        if(x%2!=0) insertList(x,L2->last+1,L2);
-        p++;
+Position next(Position P, List L){
+    return P+1;
+}
+
+Position previous(Position P, List L){
+    return P-1;
+}
+
+ElementType retrieve(Position P, List L){
+    return L.element[P-1];
+}
+//======================================================================//
+Position locate(ElementType x, List L){
+    Position P=1;
+    while(P!=L.Last+1){
+        if(retrieve(P,L)==x){
+            return P;
+        }
+        else P=next(P,L);
+    }
+    return P;
+}
+//======================================================================//
+void deleteDuplicate(ElementType x, List *pL){
+    Position P=1;
+    while(P!=pL->Last+1){
+        if(pL->element[P-1]==x){
+            deleteList(P,pL);
+        }
+        P++;
     }
 }
 //======================================================================//
-void input(List *L){
-    makeNullList(L);
-    int n;
-    printf("quality: "); scanf("%d",&n);
+void swap(Position P, Position Q, List *pL){
+     ElementType t = pL->element[P];
+                pL->element[P] = pL->element[Q];
+                pL->element[Q]=t;
+}
+
+void sortList(List *pL){
+    //@Bubblesort//
+    for(int i=0; i<pL->Last; i++){
+        int isSorted=false;
+        for(int j=0; j<pL->Last-i-1; j++){
+            if(pL->element[j]>pL->element[j+1]){
+                isSorted=true;
+               swap(j,j+1,pL);
+            }
+        }
+        if(!isSorted) break;
+    }
+}
+//======================================================================//
+void readList(List *pL){
+    int i,n;
     ElementType x;
-    for (int i=1; i<=n; i++){
-        printf("Nhap phan tu thu %d: ",i); scanf("%d", &x);
-        //insertList(x, i, L);
-        insertList(x, endList(*L),L);
+    makeNullList(pL);
+    printf("Enter quality: ");
+    scanf("%d",&n);
+    for(int i=0; i<n; i++){
+        printf("set x%d: ",i+1);
+        scanf("%d",&x);
+        insertList(x,endList(*pL),pL);
     }
 }
-void output(List L){
-    for(int i=firstList(L); i<endList(L); i=next(i,L)){
-        printf("%d ",retrive(i,L));
+//======================================================================//
+void printList(List L){
+    Position P=1;
+    while(P!=L.Last+1){
+        printf("%d ",L.element[P-1]);
+        P++;
     }
+    printf("\n");
 }
 //======================================================================//
 int main(){
-
-return 0;
+    List L;
+    ElementType x;
+    Position P;
+    readList(&L);
+    printList(L);
+    printf("Enter any value to add: ");
+    scanf("%d",&x);
+    printf("Enter position to add: ");
+    scanf("%d",&P);
+    insertList(x,P,&L);
+    printList(L);
+    printf("Enter value in list to delete: ");
+    scanf("%d",&x);
+    P=locate(x,L);
+    deleteList(P,&L);
+    printList(L);
+    printf("Enter value to delete every of value in list:");
+    scanf("%d",&x);
+    deleteDuplicate(x,&L);
+    printList(L);
+    printf("Sorting list: ");
+    sortList(&L);
+    printList(L);
 }
+
+
