@@ -1,6 +1,6 @@
 #include <stdio.h>
 /*
-* Author @PhanPhuongLan
+* @author PhanPhuongLan
 */
 //initial
 #define MaxLength 300
