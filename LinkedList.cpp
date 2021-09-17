@@ -161,32 +161,6 @@ void addFirst(ElementType x, List *L){
     p->Next=t;
 }
 
-void printOddNumbers(List L){
-    Position p=L;
-    while(p->Next!=NULL){
-        if(p->Next->Element%2!=0) printf("%d ",p->Next->Element);
-        p=p->Next;
-    }  
-}
-
-void printEvenNumbers(List L){
-    Position p=L;
-    while(p->Next!=NULL){
-        if(p->Next->Element%2==0) printf("%d ",p->Next->Element);
-        p=p->Next;
-    }  
-}
-
-void copyEvenNumbers(List L1, List *L2){
-    makeNullList(L2);
-    Position p=L1;
-    while(p->Next!=NULL){
-        if(p->Next->Element%2==0) append(p->Next->Element,L2);
-        p=p->Next;
-    }  
-}
-
-
 int member(ElementType x, List L){
     Position p=L;
     while(p->Next!=NULL){
