@@ -22,6 +22,7 @@ int fullStack(Stack S){
 ElementType top(Stack S){
     if(emptyStack(S)){
         printf("Get top Error");
+        return NULL;
     }
     else return S.element[S.top_index];
 

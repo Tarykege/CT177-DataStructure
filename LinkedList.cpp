@@ -37,6 +37,7 @@ ElementType retrieve(Position P, List L){
     if(P->Next!=NULL){
         return P->Next->Element;
     }
+    return NULL;
 }
 //======================================================================//
 void makeNullList(List *L){
