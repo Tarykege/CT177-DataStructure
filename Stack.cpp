@@ -64,6 +64,5 @@ int main(){
     pop(&S);
     printf("%d\n",top(S));    
     return 0;
-
 }
 
