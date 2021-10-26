@@ -1,8 +1,5 @@
 #include <stdio.h>
-/*
-* @author PhanPhuongLan
-*/
-//initial
+
 #define MaxLength 300
 typedef int ElementType;
 typedef int Position;
@@ -10,7 +7,7 @@ typedef struct{
     ElementType element[MaxLength];
     Position Last;
 }List;
-//method
+
 List L;
 void makeNullList(List *pL){
    pL->Last=0;
