@@ -23,11 +23,13 @@ int emptyTree(Tree T){
 Tree leftChild(Tree n){
     // checked
     if(n!=NULL) return n->Left;
+    else return NULL;
 }
 //xac dinh con phai
 Tree rightChild(Tree n){
     // checked
     if(n!=NULL) return n->Right;
+    else return NULL;
 }
 //kiem tra co phai mot nut hay khong
 int isLeaf(Tree n){
@@ -39,9 +41,11 @@ int isLeaf(Tree n){
 }
 //xac dinh so nut trong cay
 int nb_nodes(Tree T){
-    // chua check
+    // checked
+    if(T==NULL) return 0;
+    else return 1+nb_nodes(T->Left)+nb_nodes(T->Right);
 }
-//duyet tien tu
+// duyet tien tu
 void preOrder(Tree T){
     // checked
     if(T!=NULL){
@@ -79,7 +83,7 @@ Tree search(KeyType x, Tree Root){
     return NULL;
 
 }
-//them node
+//ham tao mot cay tra ve la mot cay voi nhan la key
 Tree getNewNode(int key){
     Tree T = (struct Node*) malloc(sizeof(struct Node));
     T->Key=key;
@@ -87,9 +91,10 @@ Tree getNewNode(int key){
     T->Right=NULL;
     return T;
 }
+//them node
 void insertNode(Tree* pRoot, int x){
     // chua check
-    
+    //Chia 3 truong hop: root se tra ve khi gap NULL, x < key thi se goi T->Left, x > key thi goi T->Right
     if((*pRoot)==NULL) {
         (*pRoot)=getNewNode(x);
         // (*pRoot) = (struct Node*) malloc(sizeof(struct Node));
@@ -113,17 +118,19 @@ KeyType deleteMin(Tree *pRoot){
 }
 void menu(){
     Tree T;
+    makenullTree(&T);
     while(true){
         printf("\n======== Menu ========");
         printf("\nEnter 1: add tree");
         printf("\nEnter 2: print tree");
         printf("\nEnter 3: search tree");
-        printf("\nEnter 4: exit");
+        printf("\nEnter 4: Numer of tree");
+        printf("\nEnter 5: exit");
         printf("\n======================");  
         int choose;
         printf("\nNhap lua chon: ");  
         scanf("%d",&choose);
-        if(choose< 0 || choose >4){
+        if(choose< 0 || choose >5){
             printf("\nLua chon khong hop le");
             return;
         }
@@ -162,6 +169,10 @@ void menu(){
             //seachNode(x,T);
         }
         else if(choose == 4){
+            system("cls");
+            printf("\n%d",nb_nodes(T));
+        }
+        else if(choose == 5){
             system("cls");
             return;
         }

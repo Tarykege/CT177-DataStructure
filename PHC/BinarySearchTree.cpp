@@ -66,7 +66,7 @@ void posOrder(TTree T){
 
 int nb_nodes(TTree T){
     if(T==NULL) return 0;
-    else 1+nb_nodes(leftChild(T)) + nb_nodes(rightChild(T));
+    else return 1+nb_nodes(leftChild(T)) + nb_nodes(rightChild(T));
 }
 
 TTree Create2(TData v, TTree l, TTree r){
