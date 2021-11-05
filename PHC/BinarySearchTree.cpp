@@ -77,6 +77,11 @@ TTree Create2(TData v, TTree l, TTree r){
     n->Right=r;
     return n;
 }
+//insertNode
+//SearchNode
+//DeleteNode
+//DeletMin
+
 
 int main(int argc, char const *argv[]){
     
