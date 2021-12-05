@@ -104,7 +104,7 @@ void addFirst(ElementType x, List *L){
     p->Next=t;
 }
 //======================================================================//
-void deleteList(Position P, List* L){
+void deleteList(Position P, List *L){
     Position T;
     T=P->Next;
     P->Next=T->Next;
@@ -230,7 +230,7 @@ int main(){
     printf("Nhap phan tu can them: ");
     scanf("%d",&x);
     insertList(x,endList(L),&L);
-    output(L);
+    output(L);   
     printf("Nhap noi dung phan tu can xoa: ");
     scanf("%d",&x);
     P=locate(x,L);
